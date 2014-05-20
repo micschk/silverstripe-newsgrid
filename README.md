@@ -1,4 +1,4 @@
-Newsitems managed from a GridField to prevent SiteTree clutter
+Newspages managed from a GridField to prevent SiteTree clutter
 ==============================================================
 
 Under development: working but templates not yet fully implemented
