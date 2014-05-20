@@ -1,0 +1,17 @@
+{
+    "name": "micschk/silverstripe-newsgrid",
+    "description": "Manage News items from a Gridfield to prevent cluttering the sitetree",
+    "type": "silverstripe-module",
+    "keywords": ["silverstripe", "excludechildren", "sitetree", "gridfield", "news", "updates"],
+    "authors": [
+    {
+        "name": "micschk"
+    }],
+    "require": {
+        "micschk/silverstripe-gridfieldpages": "*"
+    },
+	"extra": {
+		"installer-name": "newsgrid"
+	}
+    
+}
