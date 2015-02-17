@@ -19,7 +19,7 @@ NewsGridHolder:
   managed_object_date_field: "Date"
 NewsGridHolder_Controller:
   extensions:
-    - 'FilterableArchiveHolder_ControllerExtension'
+    - FilterableArchiveHolder_ControllerExtension
 NewsGridPage:
   extensions:
-    - 'FilterableArchiveItemExtension'
+    - FilterableArchiveItemExtension
