@@ -1,8 +1,67 @@
 <?php
+
+//class NewsHolder extends Page {
+//	static $allowed_children = array('NewsPage');
+//	static $default_child = 'NewsPage';
+//	static $icon = "themes/express/images/icons/sitetree_images/news_listing.png";
+//	public $pageIcon =  "images/icons/sitetree_images/news_listing.png";
+//
+//	public function MenuChildren() {
+//		return parent::MenuChildren()->exclude('ClassName', 'NewsPage');
+//	}
+//
+//	public function getCategories() {
+//		return NewsCategory::get()->sort('Title', 'DESC');
+//	}
+//
+//	public function getDefaultRSSLink() {
+//		return $this->Link('rss');
+//	}
+//}
+//
+//class NewsHolder_Controller extends Page_Controller {
+//
+//	public function init() {
+//		parent::init();
+//
+//		RSSFeed::linkToFeed($this->Link() . 'rss', SiteConfig::current_site_config()->Title . ' news');
+//	}
+//
+//	public function getNewsItems($pageSize = 10) {
+//		$items = DataObject::get('NewsPage', "ParentID = $this->ID")->sort('Date', 'DESC');
+//		$category = $this->getCategory();
+//		if ($category) $items = $items->filter('CategoryID', $category->ID);
+//		$list = new PaginatedList($items, $this->request);
+//		$list->setPageLength($pageSize);
+//		return $list;
+//	}
+//
+//	public function getCategory() {
+//		$categoryID = $this->request->getVar('category');
+//		if (!is_null($categoryID)) {
+//			return NewsCategory::get_by_id('NewsCategory', $categoryID);
+//		}
+//	}
+//
+//	public function rss() {
+//		$rss = new RSSFeed($this->Children(), $this->Link, SiteConfig::current_site_config()->Title . ' news');
+//		return $rss->outputToBrowser();
+//	}
+//}
  
 class NewsGridHolder extends GridFieldPageHolder {
 
+	private static $singular_name = 'NewsHolder';
+	private static $plural_name = 'NewsHolders';
+	private static $description = 'Create a page to contain your news items/archive';
+	
+	private static $hide_ancestor = 'GridFieldPageHolder';
+	private static $allowed_children = array('*NewsGridPage');
+	private static $default_child = "NewsGridPage";
+	
 	public static $icon = 'newsgrid/images/newsholder.png';
+	
+	static $add_default_gridfield = false; // set to false so GridFieldPage doesn't add standard gridfield
 
     static $db = array(
 		'ItemsPerPage' => 'Int',
@@ -10,10 +69,6 @@ class NewsGridHolder extends GridFieldPageHolder {
 	
     static $has_one = array(
     );
-
-    static $allowed_children = array('*NewsGridPage');
-	static $default_child = "NewsGridPage";
-	static $add_default_gridfield = false; // set to false so GridFieldPage doesn't add standard gridfield
      
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
@@ -37,7 +92,7 @@ class NewsGridHolder extends GridFieldPageHolder {
 		));
 
 		// include both live and stage versions of pages
-		$pages = $this->AllChildrenIncludingDeleted();
+		$pages = $this->AllChildrenIncludingDeleted()->sort('Date', 'DESC');
 
 		// use gridfield as normal;
 		$gridField = new GridField("Subpages", "Manage Newsitems", 
@@ -48,10 +103,15 @@ class NewsGridHolder extends GridFieldPageHolder {
 
 		$fields->addFieldToTab("Root.Subpages", $gridField);
 		
+		$this->extend('updateCMSFields', $fields);
+		
 		return $fields;
 	}
 	
 	public function SortedChildren(){ 
+		
+		return $this->Children()->sort('Date', 'DESC');
+		
 		// $children will be a DataObjectSet 
 		$children = $this->Children();
 
