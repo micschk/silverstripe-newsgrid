@@ -8,7 +8,14 @@
         "name": "micschk"
     }],
     "require": {
+<<<<<<< HEAD
         "micschk/silverstripe-gridfieldpages": "*"
+=======
+        "micschk/silverstripe-gridfieldpages": "*",
+		"micschk/silverstripe-softscheduler": "*",
+		"micschk/silverstripe-filterablearchive": "*",
+		"micschk/silverstripe-featuredimages": "*"
+>>>>>>> 130fca7b4e80dd132a9e8b4b12e1ed5a3e4cd839
     },
 	"extra": {
 		"installer-name": "newsgrid"
