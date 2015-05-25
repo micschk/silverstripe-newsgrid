@@ -1,4 +1,4 @@
-<ul class="newsArticles">
+<!--<ul class="newsArticles">
 	<% if Articles %><% control Articles %>
 	<li>
 	<h3><a href="$Link">$Title</a></h3>
@@ -13,4 +13,4 @@
 	<p><a href="$Link">Read the full article... </a></p>
 	</li>
 	<% end_control %><% end_if %>
-</ul>
+</ul>-->
