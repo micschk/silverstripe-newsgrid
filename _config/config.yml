@@ -1,4 +1,10 @@
 ---
+Name: newsgrid
+---
+NewsGridPage:
+  # apparently we need something here to have a named/overridable config (without any settings)
+
+---
 Only:
   classexists: EmbargoExpirySchedulerExtension
 ---
