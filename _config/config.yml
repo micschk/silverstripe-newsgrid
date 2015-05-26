@@ -1,10 +1,5 @@
 ---
-Name: newsgrid
----
-NewsGridPage:
-  # apparently we need something here to have a named/overridable config (without any settings)
-
----
+Name: newsgridembargo
 Only:
   classexists: EmbargoExpirySchedulerExtension
 ---
@@ -13,6 +8,7 @@ NewsGridPage:
     - EmbargoExpirySchedulerExtension
 
 ---
+Name: newsgridfilterable
 Only:
   classexists: FilterableArchiveHolderExtension
 ---
