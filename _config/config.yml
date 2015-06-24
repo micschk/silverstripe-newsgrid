@@ -1,4 +1,11 @@
 ---
+Name: newsgrid
+---
+NewsGridPage:
+  extensions:
+    - FeaturedImageExtension
+
+---
 Name: newsgridembargo
 Only:
   classexists: EmbargoExpirySchedulerExtension

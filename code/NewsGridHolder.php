@@ -64,7 +64,7 @@ class NewsGridHolder extends GridFieldPageHolder {
 	static $add_default_gridfield = false; // set to false so GridFieldPage doesn't add standard gridfield
 
     static $db = array(
-		'ItemsPerPage' => 'Int',
+		//'ItemsPerPage' => 'Int',
     );
 	
     static $has_one = array(
@@ -88,7 +88,7 @@ class NewsGridHolder extends GridFieldPageHolder {
 			'URLSegment'=> 'URL',
 			'formattedPublishDate' => 'Publish date',
 			'getStatus' => 'Status',
-			'LastEdited' => 'Changed',
+			'LastEdited.Nice' => 'Changed',
 		));
 
 		// include both live and stage versions of pages
@@ -108,30 +108,31 @@ class NewsGridHolder extends GridFieldPageHolder {
 		return $fields;
 	}
 	
-	public function SortedChildren(){ 
-		
-		return $this->Children()->sort('Date', 'DESC');
-		
-		// $children will be a DataObjectSet 
-		$children = $this->Children();
-
-		if( !$children ) 
-		return null; // no children, nothing to work with
-
-		// optionally: sort on some other field, like Date (override from subclass)
-		$children->sort('Date', 'DESC');
-		
-		// M: gridnews
-		if($this->ItemsPerPage && $this->ItemsPerPage > 0) {
-			$ctrlr = Controller::curr();
-			$children = new PaginatedList($children, $ctrlr->request);
-			$children->setPageLength($this->ItemsPerPage);
-		}
-		// M: END gridnews
-
-		// return sorted set 
-		return $children; 
-	}
+	// using PaginatedItems from filterablearchivecontrollerextension instead
+//	public function SortedChildren(){ 
+//		
+//		return $this->Children()->sort('Date', 'DESC');
+//		
+//		// $children will be a DataObjectSet 
+//		$children = $this->Children();
+//
+//		if( !$children ) 
+//		return null; // no children, nothing to work with
+//
+//		// optionally: sort on some other field, like Date (override from subclass)
+//		$children->sort('Date', 'DESC');
+//		
+//		// M: gridnews
+//		if($this->ItemsPerPage && $this->ItemsPerPage > 0) {
+//			$ctrlr = Controller::curr();
+//			$children = new PaginatedList($children, $ctrlr->request);
+//			$children->setPageLength($this->ItemsPerPage);
+//		}
+//		// M: END gridnews
+//
+//		// return sorted set 
+//		return $children; 
+//	}
 	
 	
 }
