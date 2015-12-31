@@ -48,67 +48,69 @@
 //		return $rss->outputToBrowser();
 //	}
 //}
- 
-class NewsGridHolder extends GridFieldPageHolder {
 
-	private static $singular_name = 'NewsHolder';
-	private static $plural_name = 'NewsHolders';
-	private static $description = 'Create a page to contain your news items/archive';
-	
-	private static $hide_ancestor = 'GridFieldPageHolder';
-	private static $allowed_children = array('*NewsGridPage');
-	private static $default_child = "NewsGridPage";
-	
-	public static $icon = 'newsgrid/images/newsholder.png';
-	
-	static $add_default_gridfield = false; // set to false so GridFieldPage doesn't add standard gridfield
+class NewsGridHolder extends GridFieldPageHolder
+{
 
-    static $db = array(
-		//'ItemsPerPage' => 'Int',
+    private static $singular_name = 'NewsHolder';
+    private static $plural_name = 'NewsHolders';
+    private static $description = 'Create a page to contain your news items/archive';
+    
+    private static $hide_ancestor = 'GridFieldPageHolder';
+    private static $allowed_children = array('*NewsGridPage');
+    private static $default_child = "NewsGridPage";
+    
+    public static $icon = 'newsgrid/images/newsholder.png';
+    
+    public static $add_default_gridfield = false; // set to false so GridFieldPage doesn't add standard gridfield
+
+    public static $db = array(
+        //'ItemsPerPage' => 'Int',
     );
-	
-    static $has_one = array(
+    
+    public static $has_one = array(
     );
      
-	public function getCMSFields() {
-		$fields = parent::getCMSFields();
-		
-		// NewsGrid
-		$gridFieldConfig = GridFieldConfig::create()->addComponents(
-			new GridFieldToolbarHeader(),
-			new GridFieldAddNewSiteTreeItemButton('toolbar-header-right'),
-			new GridFieldSortableHeader(),
-			new GridFieldFilterHeader(),
-			$dataColumns = new GridFieldDataColumns(),
-			new GridFieldPaginator(20),
-			new GridFieldEditSiteTreeItemButton()
-		);
-		$dataColumns->setDisplayFields(array(
-			'Title' => 'Title',
-			'URLSegment'=> 'URL',
-			'formattedPublishDate' => 'Publish date',
-			'getStatus' => 'Status',
-			'LastEdited.Nice' => 'Changed',
-		));
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+        
+        // NewsGrid
+        $gridFieldConfig = GridFieldConfig::create()->addComponents(
+            new GridFieldToolbarHeader(),
+            new GridFieldAddNewSiteTreeItemButton('toolbar-header-right'),
+            new GridFieldSortableHeader(),
+            new GridFieldFilterHeader(),
+            $dataColumns = new GridFieldDataColumns(),
+            new GridFieldPaginator(20),
+            new GridFieldEditSiteTreeItemButton()
+        );
+        $dataColumns->setDisplayFields(array(
+            'Title' => 'Title',
+            'URLSegment'=> 'URL',
+            'formattedPublishDate' => 'Publish date',
+            'getStatus' => 'Status',
+            'LastEdited.Nice' => 'Changed',
+        ));
 
-		// include both live and stage versions of pages
-		$pages = $this->AllChildrenIncludingDeleted()->sort('Date', 'DESC');
+        // include both live and stage versions of pages
+        $pages = $this->AllChildrenIncludingDeleted()->sort('Date', 'DESC');
 
-		// use gridfield as normal;
-		$gridField = new GridField("Subpages", "Manage Newsitems", 
-			$pages, $gridFieldConfig);
+        // use gridfield as normal;
+        $gridField = new GridField("Subpages", "Manage Newsitems",
+            $pages, $gridFieldConfig);
 
-		$gridField->setModelClass(self::$default_child);
-		//$gridField->setModelClass("GridFieldPage"); // prevents "GridField doesn't have a modelClassName" error
+        $gridField->setModelClass(self::$default_child);
+        //$gridField->setModelClass("GridFieldPage"); // prevents "GridField doesn't have a modelClassName" error
 
-		$fields->addFieldToTab("Root.Subpages", $gridField);
-		
-		$this->extend('updateCMSFields', $fields);
-		
-		return $fields;
-	}
-	
-	// using PaginatedItems from filterablearchivecontrollerextension instead
+        $fields->addFieldToTab("Root.Subpages", $gridField);
+        
+        $this->extend('updateCMSFields', $fields);
+        
+        return $fields;
+    }
+    
+    // using PaginatedItems from filterablearchivecontrollerextension instead
 //	public function SortedChildren(){ 
 //		
 //		return $this->Children()->sort('Date', 'DESC');
@@ -133,13 +135,12 @@ class NewsGridHolder extends GridFieldPageHolder {
 //		// return sorted set 
 //		return $children; 
 //	}
-	
-	
 }
  
-class NewsGridHolder_Controller extends GridFieldPageHolder_Controller {
-	
-	// redirect this page to its first child page (better to implement on link() in Model)
+class NewsGridHolder_Controller extends GridFieldPageHolder_Controller
+{
+    
+    // redirect this page to its first child page (better to implement on link() in Model)
 //	public function index(){
 //		if($children = $this->Children()){
 //			$children->sort('Date','DESC');
@@ -149,5 +150,4 @@ class NewsGridHolder_Controller extends GridFieldPageHolder_Controller {
 //			}
 //		}
 //	}
-	
 }

@@ -44,46 +44,49 @@
 //	}
 //}
 
-class NewsGridPage extends GridFieldPage {
-	
-	private static $singular_name = 'NewsItem';
-	private static $plural_name = 'NewsItems';
-	private static $description = 'Create a news item';
-	
-	private static $can_be_root = false;
-	private static $hide_ancestor = 'GridFieldPage';
-	private static $allowed_children = "none";
-	
-	public static $icon = 'newsgrid/images/newsholder.png';
-	
-	//static $default_sort = "Date DESC";
-	
-	public static $db = array(
-		'Date' => 'Date',
-	);
-	
-	public function formattedPublishDate(){
-		return $this->obj('Date')->Format('Y-m-d'); 
-	} 
+class NewsGridPage extends GridFieldPage
+{
+    
+    private static $singular_name = 'NewsItem';
+    private static $plural_name = 'NewsItems';
+    private static $description = 'Create a news item';
+    
+    private static $can_be_root = false;
+    private static $hide_ancestor = 'GridFieldPage';
+    private static $allowed_children = "none";
+    
+    public static $icon = 'newsgrid/images/newsholder.png';
+    
+    //static $default_sort = "Date DESC";
 
-	public function populateDefaults() {
-		$this->Date = date('dd-MM-yyyy');
-		parent::populateDefaults();
-	}
+    public static $db = array(
+        'Date' => 'Date',
+    );
+    
+    public function formattedPublishDate()
+    {
+        return $this->obj('Date')->Format('Y-m-d');
+    }
 
-	public function getCMSFields() {
-		$fields = parent::getCMSFields();
+    public function populateDefaults()
+    {
+        $this->Date = date('dd-MM-yyyy');
+        parent::populateDefaults();
+    }
 
-		$Datepckr = new DateField('Date');
-		$Datepckr->setConfig('dateformat', 'dd-MM-yyyy'); // global setting
-		$Datepckr->setConfig('showcalendar', 1); // field-specific setting
-		$fields->addFieldToTab("Root.Main", $Datepckr, 'Content');
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
 
-		return $fields;
-	}
-	
+        $Datepckr = new DateField('Date');
+        $Datepckr->setConfig('dateformat', 'dd-MM-yyyy'); // global setting
+        $Datepckr->setConfig('showcalendar', 1); // field-specific setting
+        $fields->addFieldToTab("Root.Main", $Datepckr, 'Content');
+
+        return $fields;
+    }
 }
  
-class NewsGridPage_Controller extends GridFieldPage_Controller {
-	
+class NewsGridPage_Controller extends GridFieldPage_Controller
+{
 }
